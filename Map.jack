@@ -1,0 +1,58 @@
+class Map {
+
+    // const value
+    static int MAX_X, MAX_Y, MIN_X, MIN_Y;
+
+    field int test;
+
+    constructor Map new() {
+        let MAX_X = 404;
+        let MIN_X = 20;
+        let MAX_Y = 240;
+        let MIN_Y = 16;
+        return this;
+    }
+
+    method void build() {
+        var int i;
+        var int j;
+        var int len;
+
+        var Fog fog;
+        let fog = Fog.new(MIN_X, MIN_Y);
+
+        // Draw the edge
+        do Screen.drawLine(MIN_X, MIN_Y, MAX_X, MIN_Y);
+        do Screen.drawLine(MIN_X, MAX_Y, MAX_X, MAX_Y);
+        do Screen.drawLine(MIN_X, MIN_Y, MIN_X, MAX_Y);
+        do Screen.drawLine(MAX_X, MIN_Y, MAX_X, MAX_Y);
+
+        // Stastistic
+        do Output.moveCursor(3, 52);
+        do Output.printString("score:");
+
+        // Grid
+        let len = 16;
+        let i = (MAX_X - MIN_X) / len - 1;
+        let j = (MAX_Y - MIN_Y) / len - 1;
+
+        while (j > 0) {
+            do Screen.drawLine(MIN_X, MIN_Y + (j * len), MAX_X, MIN_Y + (j * len));
+            let j = j - 1;
+        }
+
+        while (i > 0) {
+            do Screen.drawLine(MIN_X + (i * len), MIN_Y, MIN_X + (i * len), MAX_Y);
+            let i = i - 1;
+        }
+
+        do fog.show();
+        
+        return;
+    }
+
+    method void dispose() {
+        do Memoery.deAlloc(this);
+        return;
+    }
+}

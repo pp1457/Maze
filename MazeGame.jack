@@ -1,0 +1,36 @@
+class MazeGame {
+
+    field Map map;
+    field int time;
+
+    constructor MazeGame new() {
+        let map = Map.new();
+        return this;
+    }
+
+    method void run() {
+        var boolean exit;
+        var int key;
+
+        do map.build();
+
+        let exit = false;
+
+        while (~false) {
+            while (key = 0) {
+                let key = Keyboard.keyPressed();
+            }
+
+            if (key = 81) { let exit = true; }
+        }
+
+        return;
+    }
+
+    method void dispose() {
+        do map.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+}
+
