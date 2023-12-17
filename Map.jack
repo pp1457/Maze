@@ -2,24 +2,40 @@ class Map {
 
     // const value
     static int MAX_X, MAX_Y, MIN_X, MIN_Y;
+    static int len, r, c;
 
-    field int test;
+    field Array status;
 
     constructor Map new() {
-        let MAX_X = 404;
+        var int i;
+        
+        let len = 15;
+    
+        let MAX_X = 395;
         let MIN_X = 20;
         let MAX_Y = 240;
-        let MIN_Y = 16;
+        let MIN_Y = 15;
+
+        let c = (MAX_X - MIN_X) / len;
+        let r = (MAX_Y - MIN_Y) / len;
+
+
+        let status = Array.new(c);
+
+        let i = 0;
+        
+        while (i < c) {
+            let status[i] = Array.new(r);
+            let i = i + 1;
+        }
+        
         return this;
     }
 
     method void build() {
         var int i;
         var int j;
-        var int len;
-
         var Fog fog;
-        let fog = Fog.new(MIN_X, MIN_Y);
 
         // Draw the edge
         do Screen.drawLine(MIN_X, MIN_Y, MAX_X, MIN_Y);
@@ -32,9 +48,8 @@ class Map {
         do Output.printString("score:");
 
         // Grid
-        let len = 16;
-        let i = (MAX_X - MIN_X) / len - 1;
-        let j = (MAX_Y - MIN_Y) / len - 1;
+        let i = c - 1;
+        let j = r - 1;
 
         while (j > 0) {
             do Screen.drawLine(MIN_X, MIN_Y + (j * len), MAX_X, MIN_Y + (j * len));
@@ -46,7 +61,19 @@ class Map {
             let i = i - 1;
         }
 
-        do fog.show();
+        let i = 0;
+        let fog = Fog.new();
+
+        while (i < c) {
+            let j = 0;
+            while (j < r) {
+                do fog.show(MIN_X + (i*len), MIN_Y + (j*len));
+                let j = j + 1;
+            }
+            let i = i + 1;
+        }
+
+
         
         return;
     }

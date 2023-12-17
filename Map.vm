@@ -1,0 +1,214 @@
+function Map.new 1
+push constant 1
+call Memory.alloc 1
+pop pointer 0
+push constant 15
+pop static 4
+push constant 395
+pop static 0
+push constant 20
+pop static 2
+push constant 240
+pop static 1
+push constant 15
+pop static 3
+push static 0
+push static 2
+sub
+push static 4
+call Math.divide 2
+pop static 6
+push static 1
+push static 3
+sub
+push static 4
+call Math.divide 2
+pop static 5
+push static 6
+call Array.new 1
+pop this 0
+push constant 0
+pop local 0
+label WHILE_EXP0
+push local 0
+push static 6
+lt
+not
+if-goto WHILE_END0
+push local 0
+push this 0
+add
+push static 5
+call Array.new 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push pointer 0
+return
+function Map.build 3
+push argument 0
+pop pointer 0
+push static 2
+push static 3
+push static 0
+push static 3
+call Screen.drawLine 4
+pop temp 0
+push static 2
+push static 1
+push static 0
+push static 1
+call Screen.drawLine 4
+pop temp 0
+push static 2
+push static 3
+push static 2
+push static 1
+call Screen.drawLine 4
+pop temp 0
+push static 0
+push static 3
+push static 0
+push static 1
+call Screen.drawLine 4
+pop temp 0
+push constant 3
+push constant 52
+call Output.moveCursor 2
+pop temp 0
+push constant 6
+call String.new 1
+push constant 115
+call String.appendChar 2
+push constant 99
+call String.appendChar 2
+push constant 111
+call String.appendChar 2
+push constant 114
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 58
+call String.appendChar 2
+call Output.printString 1
+pop temp 0
+push static 6
+push constant 1
+sub
+pop local 0
+push static 5
+push constant 1
+sub
+pop local 1
+label WHILE_EXP0
+push local 1
+push constant 0
+gt
+not
+if-goto WHILE_END0
+push static 2
+push static 3
+push local 1
+push static 4
+call Math.multiply 2
+add
+push static 0
+push static 3
+push local 1
+push static 4
+call Math.multiply 2
+add
+call Screen.drawLine 4
+pop temp 0
+push local 1
+push constant 1
+sub
+pop local 1
+goto WHILE_EXP0
+label WHILE_END0
+label WHILE_EXP1
+push local 0
+push constant 0
+gt
+not
+if-goto WHILE_END1
+push static 2
+push local 0
+push static 4
+call Math.multiply 2
+add
+push static 3
+push static 2
+push local 0
+push static 4
+call Math.multiply 2
+add
+push static 1
+call Screen.drawLine 4
+pop temp 0
+push local 0
+push constant 1
+sub
+pop local 0
+goto WHILE_EXP1
+label WHILE_END1
+push constant 0
+pop local 0
+call Fog.new 0
+pop local 2
+label WHILE_EXP2
+push local 0
+push static 6
+lt
+not
+if-goto WHILE_END2
+push constant 0
+pop local 1
+label WHILE_EXP3
+push local 1
+push static 5
+lt
+not
+if-goto WHILE_END3
+push local 2
+push static 2
+push local 0
+push static 4
+call Math.multiply 2
+add
+push static 3
+push local 1
+push static 4
+call Math.multiply 2
+add
+call Fog.show 3
+pop temp 0
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP3
+label WHILE_END3
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP2
+label WHILE_END2
+push constant 0
+return
+function Map.dispose 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Memoery.deAlloc 1
+pop temp 0
+push constant 0
+return

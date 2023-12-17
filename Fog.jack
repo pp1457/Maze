@@ -1,74 +1,36 @@
 class Fog {
 
     field Array a;
-    field int x;
-    field int y;
+    
+    field Block block;
 
-    static Array bit_masks;
-
-    constructor Fog new(int X, int Y) {
-        var int i;
-
-        let x = X;
-        let y = Y;
+    constructor Fog new() {
 
         let a = Array.new(15);
 
-        let i = 0;
+        let a[0] = 13933;  
+        let a[1] = 3424;
+        let a[2] = 8452;
+        let a[3] = 9983;
+        let a[4] = 31888;
+        let a[5] = 22232;
+        let a[6] = 13933;
+        let a[7] = 3424;
+        let a[8] = 8452;
+        let a[9] = 9983;
+        let a[10] = 31888; 
+        let a[11] = 22232; 
+        let a[12] = 12344;
+        let a[13] = 11233;
+        let a[14] = 11399;
 
-        let bit_masks = Array.new(15);
-        let bit_masks[0]  = 1;
-        let bit_masks[1]  = 2;
-        let bit_masks[2]  = 4;
-        let bit_masks[3]  = 8;
-        let bit_masks[4]  = 16;
-        let bit_masks[5]  = 32;
-        let bit_masks[6]  = 64;
-        let bit_masks[7]  = 128;
-        let bit_masks[8]  = 256;
-        let bit_masks[9]  = 512;
-        let bit_masks[10] = 1024;
-        let bit_masks[11] = 2048;
-        let bit_masks[12] = 4096;
-        let bit_masks[13] = 8192;
-        let bit_masks[14] = 16384;
-
-        while (i < 15) {
-            let a[i] = 32767; 
-            let i = i + 1;
-        }
+        let block = Block.new();
 
         return this;
     }
 
-    method void show() {
-
-        var int i;
-        var int j;
-        var int cur;
-        
-        let j = 0;
-
-        while (j < 15) {
-            let i = 0;
-
-            while (i < 15) {
-
-                if (~((bit_masks[i] & a[j]) = 0)) {
-                    do Screen.setColor(true);
-                } else {
-                    do Screen.setColor(false);
-                }
-                
-                do Screen.drawPixel(x+i+1, y+j+1);
-
-                let i = i + 1;
-            }
-            let j = j + 1;
-        }
-
-        do Output.printString("done!");
-
+    method void show(int x, int y) {
+        do block.show(x, y, a); 
         return;
     }
 
