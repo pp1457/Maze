@@ -5,9 +5,15 @@ class Map {
     static int len, r, c;
     static Fog fog;
     static Wall wall;
+    static Exit exit;
     static int viewSize;
 
-    static Array status;
+    static Array status; /*
+        0 : empty
+        1 : wall
+        2 : exit
+        3 : coin
+    */
 
     field boolean test;
 
@@ -43,6 +49,7 @@ class Map {
 
         let fog = Fog.new();
         let wall = Wall.new();
+        let exit = Exit.new();
 
         return this;
     }
@@ -84,7 +91,7 @@ class Map {
                         do wall.show(MIN_X + (i*len), MIN_Y + (j*len));
                     } 
                     if (tmp[j] = 2) {
-                    
+                        do exit.show(MIN_X + (i*len) + 7, MIN_Y + (j*len) + 7); 
                     }
                     if (tmp[j] = 0) {
                         do Screen.setColor(false);
@@ -102,7 +109,11 @@ class Map {
                 if ((j > (-1)) & (j < r)) {
                     if (tmp[j] = 1) {
                         do wall.show(MIN_X + (i*len), MIN_Y + (j*len));
-                    } else {
+                    }
+                    if (tmp[j] = 2) {
+                        do exit.show(MIN_X + (i*len) + 7, MIN_Y + (j*len) + 7); 
+                    }
+                    if (tmp[j] = 0) {
                         do Screen.setColor(false);
                         do Screen.drawRectangle(MIN_X+(i*len)+1, MIN_Y+(j*len)+1, MIN_X+(i*len)+14, MIN_Y+(j*len)+14);
                     }
@@ -117,6 +128,9 @@ class Map {
         var Array tmp;
         let tmp = status[x];
         if (tmp[y] = 1) { return false; }
+        if (tmp[y] = 2) {
+            
+        }
         return true;
     }
 
@@ -236,6 +250,7 @@ class Map {
     method void build() {
         var int i;
         var int j;
+        var Array tmp;
 
         // Draw the edge
         do Screen.drawLine(MIN_X, MIN_Y, MAX_X, MIN_Y);
@@ -263,6 +278,10 @@ class Map {
 
         // draw the map
         do drawMap();
+
+        // set exit
+        let tmp = status[0];
+        let tmp[0] = 2;
 
 
         let i = 0;

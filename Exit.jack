@@ -1,8 +1,8 @@
-class Target {
+class Exit {
     field Array a;
-    filed int x, y;
+    field int x, y;
 
-    constructor Target new() {
+    constructor Exit new() {
         let a = Array.new(15); 
         
         let a[0] = 13933;   
@@ -27,12 +27,18 @@ class Target {
         return this; 
     }
     
-    method void show(int x, int y, boolean t) {
-        do Screen.setColor(t);
+    method void show(int x, int y) {
+        do Screen.setColor(true);
         do Screen.drawCircle(x, y, 7); 
-        let t = 1 - t;
-        do Screen.setColor(t);
+        do Screen.setColor(false);
         do Screen.drawCircle(x, y, 4); 
         return;
     }
+    
+    method void dispose() {
+        do a.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
 }

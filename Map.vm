@@ -5,7 +5,7 @@ pop pointer 0
 push constant 15
 pop static 4
 push constant 5
-pop static 9
+pop static 10
 push constant 395
 pop static 0
 push constant 20
@@ -28,7 +28,7 @@ call Math.divide 2
 pop static 5
 push static 6
 call Array.new 1
-pop static 10
+pop static 11
 push constant 0
 pop local 1
 label WHILE_EXP0
@@ -38,7 +38,7 @@ lt
 not
 if-goto WHILE_END0
 push local 1
-push static 10
+push static 11
 add
 push static 5
 call Array.new 1
@@ -47,7 +47,7 @@ pop pointer 1
 push temp 0
 pop that 0
 push local 1
-push static 10
+push static 11
 add
 pop pointer 1
 push that 0
@@ -84,6 +84,8 @@ call Fog.new 0
 pop static 7
 call Wall.new 0
 pop static 8
+call Exit.new 0
+pop static 9
 push pointer 0
 return
 function Map.fill 2
@@ -100,7 +102,7 @@ pop local 1
 label WHILE_EXP0
 push local 0
 push argument 1
-push static 9
+push static 10
 add
 lt
 not
@@ -133,7 +135,7 @@ pop local 1
 label WHILE_EXP1
 push local 1
 push argument 2
-push static 9
+push static 10
 add
 lt
 not
@@ -189,7 +191,7 @@ pop local 1
 label WHILE_EXP0
 push local 0
 push argument 1
-push static 9
+push static 10
 add
 lt
 not
@@ -206,7 +208,7 @@ if-goto IF_TRUE2
 goto IF_FALSE2
 label IF_TRUE2
 push local 0
-push static 10
+push static 11
 add
 pop pointer 1
 push that 0
@@ -234,8 +236,45 @@ call Math.multiply 2
 add
 call Wall.show 3
 pop temp 0
-goto IF_END3
 label IF_FALSE3
+push local 1
+push local 2
+add
+pop pointer 1
+push that 0
+push constant 2
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push static 9
+push static 2
+push local 0
+push static 4
+call Math.multiply 2
+add
+push constant 7
+add
+push static 3
+push local 1
+push static 4
+call Math.multiply 2
+add
+push constant 7
+add
+call Exit.show 3
+pop temp 0
+label IF_FALSE4
+push local 1
+push local 2
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
 push constant 0
 call Screen.setColor 1
 pop temp 0
@@ -269,7 +308,7 @@ push constant 14
 add
 call Screen.drawRectangle 4
 pop temp 0
-label IF_END3
+label IF_FALSE5
 label IF_FALSE2
 push local 0
 push constant 1
@@ -288,18 +327,18 @@ push constant 1
 sub
 gt
 or
-if-goto IF_TRUE4
-goto IF_FALSE4
-label IF_TRUE4
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
 push constant 0
 return
-label IF_FALSE4
+label IF_FALSE6
 push argument 1
 pop local 0
 push argument 2
 pop local 1
 push argument 1
-push static 10
+push static 11
 add
 pop pointer 1
 push that 0
@@ -307,7 +346,7 @@ pop local 2
 label WHILE_EXP1
 push local 1
 push argument 2
-push static 9
+push static 10
 add
 lt
 not
@@ -320,9 +359,9 @@ push local 1
 push static 5
 lt
 and
-if-goto IF_TRUE5
-goto IF_FALSE5
-label IF_TRUE5
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
 push local 1
 push local 2
 add
@@ -330,9 +369,9 @@ pop pointer 1
 push that 0
 push constant 1
 eq
-if-goto IF_TRUE6
-goto IF_FALSE6
-label IF_TRUE6
+if-goto IF_TRUE8
+goto IF_FALSE8
+label IF_TRUE8
 push static 8
 push static 2
 push local 0
@@ -346,8 +385,45 @@ call Math.multiply 2
 add
 call Wall.show 3
 pop temp 0
-goto IF_END6
-label IF_FALSE6
+label IF_FALSE8
+push local 1
+push local 2
+add
+pop pointer 1
+push that 0
+push constant 2
+eq
+if-goto IF_TRUE9
+goto IF_FALSE9
+label IF_TRUE9
+push static 9
+push static 2
+push local 0
+push static 4
+call Math.multiply 2
+add
+push constant 7
+add
+push static 3
+push local 1
+push static 4
+call Math.multiply 2
+add
+push constant 7
+add
+call Exit.show 3
+pop temp 0
+label IF_FALSE9
+push local 1
+push local 2
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+if-goto IF_TRUE10
+goto IF_FALSE10
+label IF_TRUE10
 push constant 0
 call Screen.setColor 1
 pop temp 0
@@ -381,8 +457,8 @@ push constant 14
 add
 call Screen.drawRectangle 4
 pop temp 0
-label IF_END6
-label IF_FALSE5
+label IF_FALSE10
+label IF_FALSE7
 push local 1
 push constant 1
 add
@@ -396,7 +472,7 @@ function Map.move 1
 push argument 0
 pop pointer 0
 push argument 1
-push static 10
+push static 11
 add
 pop pointer 1
 push that 0
@@ -414,6 +490,17 @@ label IF_TRUE0
 push constant 0
 return
 label IF_FALSE0
+push argument 2
+push local 0
+add
+pop pointer 1
+push that 0
+push constant 2
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+label IF_FALSE1
 push constant 0
 not
 return
@@ -423,7 +510,7 @@ pop pointer 0
 push argument 2
 pop local 0
 push argument 1
-push static 10
+push static 11
 add
 pop pointer 1
 push that 0
@@ -1015,7 +1102,7 @@ call Map.drawLine 4
 pop temp 0
 push constant 0
 return
-function Map.build 2
+function Map.build 3
 push argument 0
 pop pointer 0
 push static 2
@@ -1126,6 +1213,20 @@ push pointer 0
 call Map.drawMap 1
 pop temp 0
 push constant 0
+push static 11
+add
+pop pointer 1
+push that 0
+pop local 2
+push constant 0
+push local 2
+add
+push constant 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 0
 pop local 0
 label WHILE_EXP2
 push local 0
@@ -1171,7 +1272,7 @@ return
 function Map.dispose 0
 push argument 0
 pop pointer 0
-push static 10
+push static 11
 call Array.dispose 1
 pop temp 0
 push pointer 0
