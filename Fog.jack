@@ -1,11 +1,10 @@
 class Fog {
+    static Array a;
+    static Block block;
 
-    field Array a;
-    
-    field Block block;
+    field boolean test;
 
     constructor Fog new() {
-
         let a = Array.new(15);
 
         let a[0] = 13933;  
@@ -23,9 +22,6 @@ class Fog {
         let a[12] = 12344;
         let a[13] = 11233;
         let a[14] = 11399;
-
-        let block = Block.new();
-
         return this;
     }
 
@@ -35,7 +31,9 @@ class Fog {
     }
 
     method void dispose() {
-        do Memoery.deAlloc(this);
+        do a.dispose();
+        do block.dispose();
+        do Memory.deAlloc(this);
         return;
     }
 

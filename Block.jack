@@ -1,9 +1,16 @@
 class Block {
+    static int MAX_X, MAX_Y, MIN_X, MIN_Y;
     static Array bit_masks;
 
-    field int test;
+    field boolean test;
 
     constructor Block new() {
+        let MAX_X = 395;
+        let MIN_X = 20;
+        let MAX_Y = 240;
+        let MIN_Y = 15;
+
+        // bit mask
         let bit_masks = Array.new(15);
         let bit_masks[0]  = 1;
         let bit_masks[1]  = 2;
@@ -20,6 +27,7 @@ class Block {
         let bit_masks[12] = 4096;
         let bit_masks[13] = 8192;
         let bit_masks[14] = 16384;
+
         return this;
     }
 
@@ -28,13 +36,15 @@ class Block {
         var int i;
         var int j;
         var int cur;
+
+        if (((x+14) > MAX_X) | (x < MIN_X) | ((y+14) > MAX_Y) | (y < MIN_Y)) { return; }
         
         let j = 0;
 
-        while (j < 15) {
+        while (j < 14) {
             let i = 0;
 
-            while (i < 15) {
+            while (i < 14) {
 
                 if (~((bit_masks[i] & a[j]) = 0)) {
                     do Screen.setColor(true);
@@ -53,7 +63,8 @@ class Block {
     }
 
     method void dispose() {
-        do Memoery.deAlloc(this);
+        do bit_masks.dipose();
+        do Memory.deAlloc(this);
         return;
     }
 

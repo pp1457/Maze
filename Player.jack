@@ -1,0 +1,166 @@
+class Player {
+    static int MAX_X, MAX_Y, MIN_X, MIN_Y;
+    static int len, r, c;
+    static Array a;
+    static int x, y;
+    static Map map;
+
+    field boolean test;
+
+    constructor Player new() {
+
+        let len = 15;
+    
+        let MAX_X = 395;
+        let MIN_X = 20;
+        let MAX_Y = 240;
+        let MIN_Y = 15;
+
+        let x = 208;
+        let y = 128;
+
+        let c = (MAX_X - MIN_X) / len;
+        let r = (MAX_Y - MIN_Y) / len;
+
+        let map = Map.new();
+        do map.build();
+
+        do map.clear(11, 6, true);
+        do map.clear(11, 7, true);
+        do map.clear(11, 8, true);
+        do show(x, y, true); 
+
+
+        let a = Array.new(15); 
+        
+        let a[0] = 13933;   
+        let a[1] = 3424;
+        let a[2] = 8452;
+        let a[3] = 9983;
+        let a[4] = 31888;
+        let a[5] = 22232;
+        let a[6] = 13933;
+        let a[7] = 3424;
+        let a[8] = 8452;
+        let a[9] = 9983;
+        let a[10] = 31888; 
+        let a[11] = 22232; 
+        let a[12] = 12344;
+        let a[13] = 11233;
+        let a[14] = 11399;
+
+        return this;
+    }
+
+    method void show(int x, int y, boolean t) {
+        do Screen.setColor(t);
+        do Screen.drawCircle(x, y, 5); 
+        return;
+    }
+
+    method boolean valid(int x, int y) {
+        var boolean checkMap;
+        var int r, c;
+        if ((x < MIN_X) | (x > MAX_X) | (y < MIN_Y) | (y > MAX_Y)) { return false; }
+
+        let c = Math.divide((x - MIN_X), len);
+        let r = Math.divide((y - MIN_Y), len);
+
+        let checkMap = map.move(c, r);  
+        if (~checkMap) { return false; }
+
+        return true;
+
+    }
+
+
+    method void move(int direction) {
+        /*
+        1 : up
+        2 : down
+        3 : left 
+        4 : right
+        */
+
+        var int x2, y2;
+        var int tx, ty;
+        var boolean d;
+        var boolean check;
+
+        
+        let x2 = x;
+        let y2 = y;
+
+        if (direction = 1) { let y2  = y2 - len; } 
+        if (direction = 2) { let y2  = y2 + len; }
+        if (direction = 3) { let x2  = x2 - len; } 
+        if (direction = 4) { let x2  = x2 + len; }
+
+        let check = valid(x2, y2);
+
+        if (check) {
+            let tx = (x - MIN_X) / len;
+            let ty = (y - MIN_Y) / len;
+
+            if (direction = 1) { 
+                let tx  = tx - 1; 
+                let ty  = ty + 1; 
+                let d = true;
+            } 
+            if (direction = 2) {
+                let tx  = tx - 1; 
+                let ty  = ty - 1; 
+                let d = true;
+            }
+            if (direction = 3) {
+                let tx  = tx + 1; 
+                let ty  = ty - 1; 
+                let d = false;
+            } 
+            if (direction = 4) { 
+                let tx  = tx - 1; 
+                let ty  = ty - 1; 
+                let d = false;
+            }
+            
+            do map.fill(tx, ty, d);
+            do show(x, y, false);
+            let x = x2;
+            let y = y2;
+            let tx = (x - MIN_X) / len;
+            let ty = (y - MIN_Y) / len;
+            if (direction = 1) { 
+                let tx  = tx - 1; 
+                let ty  = ty - 1; 
+                let d = true;
+            } 
+            if (direction = 2) {
+                let tx  = tx - 1; 
+                let ty  = ty + 1; 
+                let d = true;
+            }
+            if (direction = 3) {
+                let tx  = tx - 1; 
+                let ty  = ty - 1; 
+                let d = false;
+            } 
+            if (direction = 4) { 
+                let tx  = tx + 1; 
+                let ty  = ty - 1; 
+                let d = false;
+            }
+            do map.clear(tx, ty, d);
+            do show(x, y, true);
+        }
+
+        return;
+    }
+
+    method void dispose() {
+        do a.dispose();
+        do map.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+}

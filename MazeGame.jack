@@ -1,34 +1,56 @@
 class MazeGame {
 
-    field Map map;
-    field int time;
+    static int time;
+    static Player player;
+
+    field boolean test;
 
     constructor MazeGame new() {
-        let map = Map.new();
+        let player = Player.new();
         return this;
+    }
+
+    method void movePlayer(int direction) {
+        do player.move(direction); 
+        return;
     }
 
     method void run() {
         var boolean exit;
+        var int direction;
         var int key;
 
-        do map.build();
-
+        let direction = 0;
         let exit = false;
+        let key = 5;
 
-        while (~false) {
+        while (~exit) {
+        
             while (key = 0) {
                 let key = Keyboard.keyPressed();
             }
 
             if (key = 81) { let exit = true; }
+            if (key = 131) { let direction = 1; }
+            if (key = 133) { let direction = 2; }
+            if (key = 130) { let direction = 3; }
+            if (key = 132) { let direction = 4; }
+
+            while (~(key = 0)) {
+                let key = Keyboard.keyPressed();
+                // do Output.printInt(direction);
+            }
+
+            if (direction > 0) {
+                do movePlayer(direction);
+            }
         }
 
         return;
     }
 
     method void dispose() {
-        do map.dispose();
+        do player.dispose();
         do Memory.deAlloc(this);
         return;
     }

@@ -1,0 +1,44 @@
+class Wall {
+
+    static Array a;
+    static Block block;
+
+    field boolean test;
+
+    constructor Wall new() {
+        let a = Array.new(15);
+
+        let a[0] = 32767; 
+        let a[1] = 32767; 
+        let a[2] = 32767; 
+        let a[3] = 32767; 
+        let a[4] = 32767; 
+        let a[5] = 32767; 
+        let a[6] = 32767; 
+        let a[7] = 32767; 
+        let a[8] = 32767; 
+        let a[9] = 32767; 
+        let a[10] = 32767; 
+        let a[11] = 32767; 
+        let a[12] = 32767;
+        let a[13] = 32767;
+        let a[14] = 32767;
+
+        let block = Block.new();
+
+        return this;
+    }
+
+    method void show(int x, int y) {
+        do block.show(x, y, a); 
+        return;
+    }
+
+    method void dispose() {
+        do a.dispose();
+        do block.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+}
