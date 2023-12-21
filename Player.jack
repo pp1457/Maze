@@ -4,12 +4,14 @@ class Player {
     static Array a;
     static int x, y;
     static Map map;
+    static int viewDist;
 
     field boolean test;
 
     constructor Player new() {
 
         let len = 15;
+        let viewDist = 2;
     
         let MAX_X = 395;
         let MIN_X = 20;
@@ -25,9 +27,11 @@ class Player {
         let map = Map.new();
         do map.build();
 
-        do map.clear(11, 6, true);
-        do map.clear(11, 7, true);
-        do map.clear(11, 8, true);
+        do map.clear(10, 5, true);
+        do map.clear(10, 6, true);
+        do map.clear(10, 7, true);
+        do map.clear(10, 8, true);
+        do map.clear(10, 9, true);
         do show(x, y, true); 
 
 
@@ -103,23 +107,23 @@ class Player {
             let ty = (y - MIN_Y) / len;
 
             if (direction = 1) { 
-                let tx  = tx - 1; 
-                let ty  = ty + 1; 
+                let tx  = tx - viewDist; 
+                let ty  = ty + viewDist; 
                 let d = true;
             } 
             if (direction = 2) {
-                let tx  = tx - 1; 
-                let ty  = ty - 1; 
+                let tx  = tx - viewDist; 
+                let ty  = ty - viewDist; 
                 let d = true;
             }
             if (direction = 3) {
-                let tx  = tx + 1; 
-                let ty  = ty - 1; 
+                let tx  = tx + viewDist; 
+                let ty  = ty - viewDist; 
                 let d = false;
             } 
             if (direction = 4) { 
-                let tx  = tx - 1; 
-                let ty  = ty - 1; 
+                let tx  = tx - viewDist; 
+                let ty  = ty - viewDist; 
                 let d = false;
             }
             
@@ -130,23 +134,23 @@ class Player {
             let tx = (x - MIN_X) / len;
             let ty = (y - MIN_Y) / len;
             if (direction = 1) { 
-                let tx  = tx - 1; 
-                let ty  = ty - 1; 
+                let tx  = tx - viewDist; 
+                let ty  = ty - viewDist; 
                 let d = true;
             } 
             if (direction = 2) {
-                let tx  = tx - 1; 
-                let ty  = ty + 1; 
+                let tx  = tx - viewDist; 
+                let ty  = ty + viewDist; 
                 let d = true;
             }
             if (direction = 3) {
-                let tx  = tx - 1; 
-                let ty  = ty - 1; 
+                let tx  = tx - viewDist; 
+                let ty  = ty - viewDist; 
                 let d = false;
             } 
             if (direction = 4) { 
-                let tx  = tx + 1; 
-                let ty  = ty - 1; 
+                let tx  = tx + viewDist; 
+                let ty  = ty - viewDist; 
                 let d = false;
             }
             do map.clear(tx, ty, d);

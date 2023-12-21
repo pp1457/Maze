@@ -4,6 +4,8 @@ call Memory.alloc 1
 pop pointer 0
 push constant 15
 pop static 4
+push constant 5
+pop static 9
 push constant 395
 pop static 0
 push constant 20
@@ -26,7 +28,7 @@ call Math.divide 2
 pop static 5
 push static 6
 call Array.new 1
-pop static 9
+pop static 10
 push constant 0
 pop local 1
 label WHILE_EXP0
@@ -36,7 +38,7 @@ lt
 not
 if-goto WHILE_END0
 push local 1
-push static 9
+push static 10
 add
 push static 5
 call Array.new 1
@@ -45,7 +47,7 @@ pop pointer 1
 push temp 0
 pop that 0
 push local 1
-push static 9
+push static 10
 add
 pop pointer 1
 push that 0
@@ -98,7 +100,7 @@ pop local 1
 label WHILE_EXP0
 push local 0
 push argument 1
-push constant 3
+push static 9
 add
 lt
 not
@@ -131,7 +133,7 @@ pop local 1
 label WHILE_EXP1
 push local 1
 push argument 2
-push constant 3
+push static 9
 add
 lt
 not
@@ -187,7 +189,7 @@ pop local 1
 label WHILE_EXP0
 push local 0
 push argument 1
-push constant 3
+push static 9
 add
 lt
 not
@@ -204,7 +206,7 @@ if-goto IF_TRUE2
 goto IF_FALSE2
 label IF_TRUE2
 push local 0
-push static 9
+push static 10
 add
 pop pointer 1
 push that 0
@@ -297,7 +299,7 @@ pop local 0
 push argument 2
 pop local 1
 push argument 1
-push static 9
+push static 10
 add
 pop pointer 1
 push that 0
@@ -305,7 +307,7 @@ pop local 2
 label WHILE_EXP1
 push local 1
 push argument 2
-push constant 3
+push static 9
 add
 lt
 not
@@ -394,7 +396,7 @@ function Map.move 1
 push argument 0
 pop pointer 0
 push argument 1
-push static 9
+push static 10
 add
 pop pointer 1
 push that 0
@@ -421,7 +423,7 @@ pop pointer 0
 push argument 2
 pop local 0
 push argument 1
-push static 9
+push static 10
 add
 pop pointer 1
 push that 0
@@ -1169,7 +1171,7 @@ return
 function Map.dispose 0
 push argument 0
 pop pointer 0
-push static 9
+push static 10
 call Array.dispose 1
 pop temp 0
 push pointer 0

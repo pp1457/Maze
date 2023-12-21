@@ -4,6 +4,8 @@ call Memory.alloc 1
 pop pointer 0
 push constant 15
 pop static 4
+push constant 2
+pop static 11
 push constant 395
 pop static 0
 push constant 20
@@ -34,22 +36,36 @@ push static 10
 call Map.build 1
 pop temp 0
 push static 10
-push constant 11
+push constant 10
+push constant 5
+push constant 0
+not
+call Map.clear 4
+pop temp 0
+push static 10
+push constant 10
 push constant 6
 push constant 0
 not
 call Map.clear 4
 pop temp 0
 push static 10
-push constant 11
+push constant 10
 push constant 7
 push constant 0
 not
 call Map.clear 4
 pop temp 0
 push static 10
-push constant 11
+push constant 10
 push constant 8
+push constant 0
+not
+call Map.clear 4
+pop temp 0
+push static 10
+push constant 10
+push constant 9
 push constant 0
 not
 call Map.clear 4
@@ -330,11 +346,11 @@ if-goto IF_TRUE5
 goto IF_FALSE5
 label IF_TRUE5
 push local 2
-push constant 1
+push static 11
 sub
 pop local 2
 push local 3
-push constant 1
+push static 11
 add
 pop local 3
 push constant 0
@@ -348,11 +364,11 @@ if-goto IF_TRUE6
 goto IF_FALSE6
 label IF_TRUE6
 push local 2
-push constant 1
+push static 11
 sub
 pop local 2
 push local 3
-push constant 1
+push static 11
 sub
 pop local 3
 push constant 0
@@ -366,11 +382,11 @@ if-goto IF_TRUE7
 goto IF_FALSE7
 label IF_TRUE7
 push local 2
-push constant 1
+push static 11
 add
 pop local 2
 push local 3
-push constant 1
+push static 11
 sub
 pop local 3
 push constant 0
@@ -383,11 +399,11 @@ if-goto IF_TRUE8
 goto IF_FALSE8
 label IF_TRUE8
 push local 2
-push constant 1
+push static 11
 sub
 pop local 2
 push local 3
-push constant 1
+push static 11
 sub
 pop local 3
 push constant 0
@@ -428,11 +444,11 @@ if-goto IF_TRUE9
 goto IF_FALSE9
 label IF_TRUE9
 push local 2
-push constant 1
+push static 11
 sub
 pop local 2
 push local 3
-push constant 1
+push static 11
 sub
 pop local 3
 push constant 0
@@ -446,11 +462,11 @@ if-goto IF_TRUE10
 goto IF_FALSE10
 label IF_TRUE10
 push local 2
-push constant 1
+push static 11
 sub
 pop local 2
 push local 3
-push constant 1
+push static 11
 add
 pop local 3
 push constant 0
@@ -464,11 +480,11 @@ if-goto IF_TRUE11
 goto IF_FALSE11
 label IF_TRUE11
 push local 2
-push constant 1
+push static 11
 sub
 pop local 2
 push local 3
-push constant 1
+push static 11
 sub
 pop local 3
 push constant 0
@@ -481,11 +497,11 @@ if-goto IF_TRUE12
 goto IF_FALSE12
 label IF_TRUE12
 push local 2
-push constant 1
+push static 11
 add
 pop local 2
 push local 3
-push constant 1
+push static 11
 sub
 pop local 3
 push constant 0
