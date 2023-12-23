@@ -3,8 +3,11 @@ class Player {
     static int len, r, c;
     static Array a;
     static int x, y;
+    static int remain;
     static Map map;
     static int viewDist, viewSize;
+
+    static int xDist, yDist;
 
     field boolean end;
     field boolean start;
@@ -24,7 +27,7 @@ class Player {
         let r = (MAX_Y - MIN_Y) / len;
 
         let map = Map.new();
-        do map.build();
+        do map.build(0);
 
         let a = Array.new(15); 
         
@@ -46,13 +49,40 @@ class Player {
 
         let end = false;
         let start = false;
+
+        let remain = 50;
+
         return this;
+    }
+
+    method void showDis() {
+        do Output.moveCursor(16, 55);
+        do Output.printString("     ");
+        do Output.moveCursor(16, 55);
+        do Output.printInt(xDist);
+        do Output.moveCursor(18, 55);
+        do Output.printString("    ");
+        do Output.moveCursor(18, 55);
+        do Output.printInt(yDist);
+        do Output.moveCursor(20, 60);
+        do Output.printString("   ");
+        do Output.moveCursor(20, 60);
+        do Output.printInt(remain);
+        return;
     }
     
     method void restart() {
         let x = 208;
         let y = 128;
-        do map.build();
+
+        do Output.moveCursor(16, 55);
+        do Output.printString("     ");
+        do Output.moveCursor(18, 55);
+        do Output.printString("    ");
+        do Output.moveCursor(20, 60);
+        do Output.printString("   ");
+
+        do map.build(0);
         do map.clear(10, 5, true, viewSize);
         do map.clear(10, 6, true, viewSize);
         do map.clear(10, 7, true, viewSize);
@@ -173,11 +203,36 @@ class Player {
                 let d = false;
             }
             do map.clear(tx, ty, d, viewSize);
+
+            let tx = xDist;
+            let ty = yDist;
+
+            let xDist = map.xRem(x);
+            let yDist = map.yRem(y);
+
+            if (xDist < tx | yDist < ty) {
+                let remain = remain - 2;
+            } else {
+                let remain = remain + 1;
+            }
+
+            do showDis();
+            
+            if (remain < 1) {
+                let end = true;
+                do map.clearMap();
+                do map.gameOver(false);
+                return;
+            }
+
             do show(x, y, true);
         }
 
         if (check = 2) {
             let end = true;
+            let xDist = 0;
+            let yDist = 0;
+            do showDis();
             do map.gameOver(true);
         }
         return;
