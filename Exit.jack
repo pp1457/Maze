@@ -1,6 +1,6 @@
 class Exit {
+
     field Array a;
-    field int x, y;
 
     constructor Exit new() {
         let a = Array.new(15); 
@@ -21,24 +21,14 @@ class Exit {
         let a[13] = 11233;
         let a[14] = 11399;
 
-        let x = 0;
-        let y = 0;
-
-        return this; 
+        return this;
     }
-    
+
     method void show(int x, int y) {
         do Screen.setColor(true);
-        do Screen.drawCircle(x, y, 7); 
+        do Screen.drawCircle(x, y, 6); 
         do Screen.setColor(false);
-        do Screen.drawCircle(x, y, 4); 
+        do Screen.drawCircle(x, y, 3);
         return;
     }
-    
-    method void dispose() {
-        do a.dispose();
-        do Memory.deAlloc(this);
-        return;
-    }
-
 }

@@ -19,22 +19,30 @@ class MazeGame {
         var boolean exit;
         var int direction;
         var int key;
+        var boolean start, restart;
 
         let direction = 0;
         let exit = false;
         let key = 5;
 
         while (~exit) {
+
+            let start = 0;
+            let restart = 0;
+            let direction = 0; 
         
             while (key = 0) {
                 let key = Keyboard.keyPressed();
             }
 
             if (key = 81) { let exit = true; }
+            if (key = 82) { let restart = true; }
+            if (key = 83) { let start = true; }
             if (key = 131) { let direction = 1; }
             if (key = 133) { let direction = 2; }
             if (key = 130) { let direction = 3; }
             if (key = 132) { let direction = 4; }
+
 
             while (~(key = 0)) {
                 let key = Keyboard.keyPressed();
@@ -43,6 +51,13 @@ class MazeGame {
 
             if (direction > 0) {
                 do movePlayer(direction);
+            }
+
+            if (start) {
+                do player.start();
+            }
+            if (restart) {
+                do player.restart();
             }
         }
 

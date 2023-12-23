@@ -1,5 +1,5 @@
 function Exit.new 0
-push constant 3
+push constant 1
 call Memory.alloc 1
 pop pointer 0
 push constant 15
@@ -125,10 +125,6 @@ pop temp 0
 pop pointer 1
 push temp 0
 pop that 0
-push constant 0
-pop this 1
-push constant 0
-pop this 2
 push pointer 0
 return
 function Exit.show 0
@@ -140,7 +136,7 @@ call Screen.setColor 1
 pop temp 0
 push argument 1
 push argument 2
-push constant 7
+push constant 6
 call Screen.drawCircle 3
 pop temp 0
 push constant 0
@@ -148,19 +144,8 @@ call Screen.setColor 1
 pop temp 0
 push argument 1
 push argument 2
-push constant 4
+push constant 3
 call Screen.drawCircle 3
-pop temp 0
-push constant 0
-return
-function Exit.dispose 0
-push argument 0
-pop pointer 0
-push this 0
-call Array.dispose 1
-pop temp 0
-push pointer 0
-call Memory.deAlloc 1
 pop temp 0
 push constant 0
 return

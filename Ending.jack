@@ -1,0 +1,8 @@
+class Ending {
+    field int score;
+    constructor Ending new(int Score) {
+        let score = Score; 
+        return this;
+    }
+
+}

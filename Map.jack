@@ -6,7 +6,6 @@ class Map {
     static Fog fog;
     static Wall wall;
     static Exit exit;
-    static int viewSize;
 
     static Array status; /*
         0 : empty
@@ -22,7 +21,6 @@ class Map {
         var int i, j;
         
         let len = 15;
-        let viewSize = 5;
     
         let MAX_X = 395;
         let MIN_X = 20;
@@ -54,7 +52,7 @@ class Map {
         return this;
     }
 
-    method void fill(int x, int y, boolean t) {
+    method void fill(int x, int y, boolean t, int viewSize) {
         var int i, j;
         // true : horizontal
         if (t) {
@@ -75,7 +73,7 @@ class Map {
         return;
     }
 
-    method void clear (int x, int y, boolean t) {
+    method void clear (int x, int y, boolean t, int viewSize) {
         var int i, j;
         var Array tmp;
 
@@ -124,14 +122,30 @@ class Map {
         return;
     }
 
-    method boolean move(int x, int y) {
+    method void clearMap() {
+        var int i;
+        let i = 1;
+        do clear(0, 1, false, r-1);
+        while (i < c) {
+            do clear(i, 0, false, r); 
+            let i = i + 1;
+        }
+        return;
+    }
+
+
+    method int move(int x, int y) {
         var Array tmp;
         let tmp = status[x];
-        if (tmp[y] = 1) { return false; }
-        if (tmp[y] = 2) {
-            
+
+        if (tmp[y] = 1) { 
+            return 0;
         }
-        return true;
+        if (tmp[y] = 2) {
+            do clearMap();
+            return 2;
+        }
+        return 1;
     }
 
     method void drawLine(int x, int y1, int y2) {
@@ -251,18 +265,24 @@ class Map {
         var int i;
         var int j;
         var Array tmp;
+        
+        // clearOutput
+        do Screen.setColor(false);
+        do Screen.drawRectangle(410, 10, 500, 70);
+
+        // Clear the window
+        do Screen.setColor(false);
+        do Screen.drawRectangle(MIN_X+1, MIN_Y+1, MAX_X-1, MAX_Y-1);
 
         // Draw the edge
+        do Screen.setColor(true);
         do Screen.drawLine(MIN_X, MIN_Y, MAX_X, MIN_Y);
         do Screen.drawLine(MIN_X, MAX_Y, MAX_X, MAX_Y);
         do Screen.drawLine(MIN_X, MIN_Y, MIN_X, MAX_Y);
         do Screen.drawLine(MAX_X, MIN_Y, MAX_X, MAX_Y);
 
-        // Stastistic
-        do Output.moveCursor(3, 52);
-        do Output.printString("score:");
 
-        // Grid
+        // grid
         let i = c - 1;
         let j = r - 1;
 
@@ -278,11 +298,10 @@ class Map {
 
         // draw the map
         do drawMap();
-
+        
         // set exit
         let tmp = status[0];
         let tmp[0] = 2;
-
 
         let i = 0;
 
@@ -294,7 +313,67 @@ class Map {
             }
             let i = i + 1;
         }
+
+
+        // right bar
+        do Output.moveCursor(7, 54);
+        do Output.printString("-----");
+        do Output.moveCursor(9, 51);
+        do Output.printString("S : start");
+        do Output.moveCursor(11, 51);
+        do Output.printString("R : restart");
+        do Output.moveCursor(13, 51);
+        do Output.printString("Arrow : move");
+        do Output.moveCursor(15, 54);
+        do Output.printString("-----");
+
         
+        return;
+    }
+
+    method void gameOver(boolean t) {
+        var int ddx;
+        var int dx, dy;
+
+        do Screen.setColor(true);
+
+        // true : AC
+
+        if (t) {
+            let ddx = 1;
+            let dx = 13;
+            let dy = 4;         
+            // A
+            do Screen.drawRectangle(415+dx, 15+dy, 430+dx, 20+dy);    
+            do Screen.drawRectangle(410+dx, 21+dy, 415+dx, 60+dy);    
+            do Screen.drawRectangle(430+dx, 21+dy, 435+dx, 60+dy);    
+            do Screen.drawRectangle(414+dx, 35+dy, 431+dx, 40+dy);    
+            // C
+            do Screen.drawRectangle(445+dx+ddx, 15+dy, 460+dx+ddx, 20+dy);    
+            do Screen.drawRectangle(440+dx+ddx, 21+dy, 445+dx+ddx, 55+dy);    
+            do Screen.drawRectangle(445+dx+ddx, 55+dy, 460+dx+ddx, 60+dy);    
+            do Screen.drawRectangle(460+dx+ddx, 21+dy, 465+dx+ddx, 25+dy);    
+            do Screen.drawRectangle(460+dx+ddx, 50+dy, 465+dx+ddx, 55+dy);    
+        }
+
+        // false : WA
+
+        if (~t) {
+            let ddx = 36;
+            let dx = 8;
+            let dy = 4;
+            // W
+            do Screen.drawRectangle(415+dx, 15+dy, 420+dx, 55+dy);    
+            do Screen.drawRectangle(420+dx, 55+dy, 425+dx, 60+dy);    
+            do Screen.drawRectangle(425+dx, 40+dy, 430+dx, 55+dy);    
+            do Screen.drawRectangle(430+dx, 55+dy, 435+dx, 60+dy);    
+            do Screen.drawRectangle(435+dx, 15+dy, 440+dx, 55+dy);    
+            // A
+            do Screen.drawRectangle(415+dx+ddx, 15+dy, 430+dx+ddx, 20+dy);    
+            do Screen.drawRectangle(410+dx+ddx, 21+dy, 415+dx+ddx, 60+dy);    
+            do Screen.drawRectangle(430+dx+ddx, 21+dy, 435+dx+ddx, 60+dy);    
+            do Screen.drawRectangle(414+dx+ddx, 35+dy, 431+dx+ddx, 40+dy);    
+        }                                 
         return;
     }
 

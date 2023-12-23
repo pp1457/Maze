@@ -4,36 +4,27 @@ class Player {
     static Array a;
     static int x, y;
     static Map map;
-    static int viewDist;
+    static int viewDist, viewSize;
 
-    field boolean test;
+    field boolean end;
+    field boolean start;
 
     constructor Player new() {
 
         let len = 15;
         let viewDist = 2;
+        let viewSize = 2 * viewDist + 1;
     
         let MAX_X = 395;
         let MIN_X = 20;
         let MAX_Y = 240;
         let MIN_Y = 15;
 
-        let x = 208;
-        let y = 128;
-
         let c = (MAX_X - MIN_X) / len;
         let r = (MAX_Y - MIN_Y) / len;
 
         let map = Map.new();
         do map.build();
-
-        do map.clear(10, 5, true);
-        do map.clear(10, 6, true);
-        do map.clear(10, 7, true);
-        do map.clear(10, 8, true);
-        do map.clear(10, 9, true);
-        do show(x, y, true); 
-
 
         let a = Array.new(15); 
         
@@ -53,7 +44,37 @@ class Player {
         let a[13] = 11233;
         let a[14] = 11399;
 
+        let end = false;
+        let start = false;
         return this;
+    }
+    
+    method void restart() {
+        let x = 208;
+        let y = 128;
+        do map.build();
+        do map.clear(10, 5, true, viewSize);
+        do map.clear(10, 6, true, viewSize);
+        do map.clear(10, 7, true, viewSize);
+        do map.clear(10, 8, true, viewSize);
+        do map.clear(10, 9, true, viewSize);
+        do show(x, y, true);
+        let end = false;
+        return;
+    }
+
+    method void start() {
+        if (start) { return; }
+        let x = 208;
+        let y = 128;
+        let start = true; 
+        do map.clear(10, 5, true, viewSize);
+        do map.clear(10, 6, true, viewSize);
+        do map.clear(10, 7, true, viewSize);
+        do map.clear(10, 8, true, viewSize);
+        do map.clear(10, 9, true, viewSize);
+        do show(x, y, true);
+        return;
     }
 
     method void show(int x, int y, boolean t) {
@@ -62,19 +83,16 @@ class Player {
         return;
     }
 
-    method boolean valid(int x, int y) {
-        var boolean checkMap;
+    method int valid(int x, int y) {
+        var int checkMap;
         var int r, c;
-        if ((x < MIN_X) | (x > MAX_X) | (y < MIN_Y) | (y > MAX_Y)) { return false; }
+        if ((x < MIN_X) | (x > MAX_X) | (y < MIN_Y) | (y > MAX_Y)) { return 0; }
 
         let c = Math.divide((x - MIN_X), len);
         let r = Math.divide((y - MIN_Y), len);
 
         let checkMap = map.move(c, r);  
-        if (~checkMap) { return false; }
-
-        return true;
-
+        return checkMap;
     }
 
 
@@ -89,8 +107,9 @@ class Player {
         var int x2, y2;
         var int tx, ty;
         var boolean d;
-        var boolean check;
+        var int check;
 
+        if ((~start) | end) { return; }
         
         let x2 = x;
         let y2 = y;
@@ -102,7 +121,7 @@ class Player {
 
         let check = valid(x2, y2);
 
-        if (check) {
+        if (check = 1) {
             let tx = (x - MIN_X) / len;
             let ty = (y - MIN_Y) / len;
 
@@ -127,7 +146,7 @@ class Player {
                 let d = false;
             }
             
-            do map.fill(tx, ty, d);
+            do map.fill(tx, ty, d, viewSize);
             do show(x, y, false);
             let x = x2;
             let y = y2;
@@ -153,10 +172,14 @@ class Player {
                 let ty  = ty - viewDist; 
                 let d = false;
             }
-            do map.clear(tx, ty, d);
+            do map.clear(tx, ty, d, viewSize);
             do show(x, y, true);
         }
 
+        if (check = 2) {
+            let end = true;
+            do map.gameOver(true);
+        }
         return;
     }
 
