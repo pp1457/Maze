@@ -1,0 +1,23 @@
+class Double {
+    field boolean test;
+
+    constructor Double new() {
+        return this;
+    }
+
+    method void show(int x, int y) {
+        do Screen.setColor(true);
+        do Screen.drawLine(x + 3, y + 3, x + 12, y + 12); 
+        do Screen.drawLine(x + 4, y + 3, x + 13, y + 12); 
+        do Screen.drawLine(x + 2, y + 3, x + 11, y + 12); 
+        do Screen.drawLine(x + 12, y + 3, x + 3, y + 12); 
+        do Screen.drawLine(x + 11, y + 3, x + 2, y + 12); 
+        do Screen.drawLine(x + 13, y + 3, x + 4, y + 12); 
+        return;
+    }
+
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+}

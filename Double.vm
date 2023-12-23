@@ -1,0 +1,107 @@
+function Double.new 0
+push constant 1
+call Memory.alloc 1
+pop pointer 0
+push pointer 0
+return
+function Double.show 0
+push argument 0
+pop pointer 0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push argument 1
+push constant 3
+add
+push argument 2
+push constant 3
+add
+push argument 1
+push constant 12
+add
+push argument 2
+push constant 12
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 1
+push constant 4
+add
+push argument 2
+push constant 3
+add
+push argument 1
+push constant 13
+add
+push argument 2
+push constant 12
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 1
+push constant 2
+add
+push argument 2
+push constant 3
+add
+push argument 1
+push constant 11
+add
+push argument 2
+push constant 12
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 1
+push constant 12
+add
+push argument 2
+push constant 3
+add
+push argument 1
+push constant 3
+add
+push argument 2
+push constant 12
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 1
+push constant 11
+add
+push argument 2
+push constant 3
+add
+push argument 1
+push constant 2
+add
+push argument 2
+push constant 12
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 1
+push constant 13
+add
+push argument 2
+push constant 3
+add
+push argument 1
+push constant 4
+add
+push argument 2
+push constant 12
+add
+call Screen.drawLine 4
+pop temp 0
+push constant 0
+return
+function Double.dispose 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return

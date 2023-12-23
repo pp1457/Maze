@@ -1,0 +1,19 @@
+class Add {
+    field boolean test;
+
+    constructor Add new() {
+        return this;
+    }
+
+    method void show(int x, int y) {
+        do Screen.setColor(true);
+        do Screen.drawRectangle(x + 2, y + 7, x + 13, y + 8); 
+        do Screen.drawRectangle(x + 7, y + 2, x + 8, y + 13); 
+        return;
+    }
+
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+}

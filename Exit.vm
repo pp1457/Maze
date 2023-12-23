@@ -8,7 +8,7 @@ pop this 0
 push constant 0
 push this 0
 add
-push constant 13933
+push constant 0
 pop temp 0
 pop pointer 1
 push temp 0
@@ -16,7 +16,7 @@ pop that 0
 push constant 1
 push this 0
 add
-push constant 3424
+push constant 3588
 pop temp 0
 pop pointer 1
 push temp 0
@@ -24,7 +24,7 @@ pop that 0
 push constant 2
 push this 0
 add
-push constant 8452
+push constant 4556
 pop temp 0
 pop pointer 1
 push temp 0
@@ -32,7 +32,7 @@ pop that 0
 push constant 3
 push this 0
 add
-push constant 9983
+push constant 4148
 pop temp 0
 pop pointer 1
 push temp 0
@@ -40,7 +40,7 @@ pop that 0
 push constant 4
 push this 0
 add
-push constant 31888
+push constant 4100
 pop temp 0
 pop pointer 1
 push temp 0
@@ -48,7 +48,7 @@ pop that 0
 push constant 5
 push this 0
 add
-push constant 22232
+push constant 4100
 pop temp 0
 pop pointer 1
 push temp 0
@@ -56,7 +56,7 @@ pop that 0
 push constant 6
 push this 0
 add
-push constant 13933
+push constant 4100
 pop temp 0
 pop pointer 1
 push temp 0
@@ -64,7 +64,7 @@ pop that 0
 push constant 7
 push this 0
 add
-push constant 3424
+push constant 7684
 pop temp 0
 pop pointer 1
 push temp 0
@@ -72,7 +72,7 @@ pop that 0
 push constant 8
 push this 0
 add
-push constant 8452
+push constant 4556
 pop temp 0
 pop pointer 1
 push temp 0
@@ -80,7 +80,7 @@ pop that 0
 push constant 9
 push this 0
 add
-push constant 9983
+push constant 52
 pop temp 0
 pop pointer 1
 push temp 0
@@ -88,7 +88,7 @@ pop that 0
 push constant 10
 push this 0
 add
-push constant 31888
+push constant 4
 pop temp 0
 pop pointer 1
 push temp 0
@@ -96,7 +96,7 @@ pop that 0
 push constant 11
 push this 0
 add
-push constant 22232
+push constant 4
 pop temp 0
 pop pointer 1
 push temp 0
@@ -104,7 +104,7 @@ pop that 0
 push constant 12
 push this 0
 add
-push constant 12344
+push constant 4
 pop temp 0
 pop pointer 1
 push temp 0
@@ -112,7 +112,7 @@ pop that 0
 push constant 13
 push this 0
 add
-push constant 11233
+push constant 4
 pop temp 0
 pop pointer 1
 push temp 0
@@ -120,32 +120,37 @@ pop that 0
 push constant 14
 push this 0
 add
-push constant 11399
+push constant 14
 pop temp 0
 pop pointer 1
 push temp 0
 pop that 0
+call Block.new 0
+pop static 0
 push pointer 0
 return
 function Exit.show 0
 push argument 0
 pop pointer 0
-push constant 0
-not
-call Screen.setColor 1
-pop temp 0
+push static 0
 push argument 1
 push argument 2
-push constant 6
-call Screen.drawCircle 3
+push this 0
+call Block.show 4
 pop temp 0
 push constant 0
-call Screen.setColor 1
+return
+function Exit.dispose 0
+push argument 0
+pop pointer 0
+push this 0
+call Array.dispose 1
 pop temp 0
-push argument 1
-push argument 2
-push constant 3
-call Screen.drawCircle 3
+push static 0
+call Block.dispose 1
+pop temp 0
+push pointer 0
+call Memory.deAlloc 1
 pop temp 0
 push constant 0
 return

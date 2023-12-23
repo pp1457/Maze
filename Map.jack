@@ -7,6 +7,8 @@ class Map {
     static Fog fog;
     static Wall wall;
     static Exit exit;
+    static Add add;
+    static Double double;
 
     static Array ex, ey;
 
@@ -17,9 +19,7 @@ class Map {
         3 : coin
     */
 
-    field boolean test;
-
-    constructor Map new() {
+    field boolean test; constructor Map new() {
         var Array tmp;
         var int i, j;
         
@@ -35,25 +35,14 @@ class Map {
 
         let status = Array.new(c);
 
-        let i = 0;
-        
-        while (i < c) {
-            let status[i] = Array.new(r);
-            let tmp = status[i];
-            let j = 0;
-            while (j < r) {
-                let tmp[j] = 0; 
-                let j = j + 1;
-            }
-            let i = i + 1;
-        }
-
         let fog = Fog.new();
         let wall = Wall.new();
         let exit = Exit.new();
+        let add = Add.new();
+        let double = Double.new();
 
-        let ex = Array.new(2);
-        let ey = Array.new(2);
+        let ex = Array.new(3);
+        let ey = Array.new(3);
 
         return this;
     }
@@ -78,6 +67,25 @@ class Map {
         }
         return;
     }
+    
+    method void show(int i, int j, int tmp) {
+        do Screen.setColor(false);
+        do Screen.drawRectangle(MIN_X+(i*len)+1, MIN_Y+(j*len)+1, MIN_X+(i*len)+14, MIN_Y+(j*len)+14);
+        if (tmp = 1) {
+            do wall.show(MIN_X + (i*len), MIN_Y + (j*len));
+        } 
+        if (tmp = 2) {
+            do exit.show(MIN_X + (i*len), MIN_Y + (j*len)); 
+        }
+        if (tmp = 3) {
+            do add.show(MIN_X + (i*len), MIN_Y + (j*len)); 
+        }
+        if (tmp = 4) {
+            do double.show(MIN_X + (i*len), MIN_Y + (j*len)); 
+        }
+
+        return;
+    }
 
     method void clear (int x, int y, boolean t, int viewSize) {
         var int i, j;
@@ -91,16 +99,7 @@ class Map {
             while (i < (x + viewSize)) {
                 if ((i > (-1)) & (i < c)) {
                     let tmp = status[i];
-                    if (tmp[j] = 1) {
-                        do wall.show(MIN_X + (i*len), MIN_Y + (j*len));
-                    } 
-                    if (tmp[j] = 2) {
-                        do exit.show(MIN_X + (i*len) + 7, MIN_Y + (j*len) + 7); 
-                    }
-                    if (tmp[j] = 0) {
-                        do Screen.setColor(false);
-                        do Screen.drawRectangle(MIN_X+(i*len)+1, MIN_Y+(j*len)+1, MIN_X+(i*len)+14, MIN_Y+(j*len)+14);
-                    }
+                    do show(i, j, tmp[j]);
                 }
                 let i = i + 1;
             }
@@ -111,16 +110,7 @@ class Map {
             let tmp = status[x];
             while (j < (y + viewSize)) {
                 if ((j > (-1)) & (j < r)) {
-                    if (tmp[j] = 1) {
-                        do wall.show(MIN_X + (i*len), MIN_Y + (j*len));
-                    }
-                    if (tmp[j] = 2) {
-                        do exit.show(MIN_X + (i*len) + 7, MIN_Y + (j*len) + 7); 
-                    }
-                    if (tmp[j] = 0) {
-                        do Screen.setColor(false);
-                        do Screen.drawRectangle(MIN_X+(i*len)+1, MIN_Y+(j*len)+1, MIN_X+(i*len)+14, MIN_Y+(j*len)+14);
-                    }
+                    do show(i, j, tmp[j]);
                 }
                 let j = j + 1;
             }
@@ -130,9 +120,7 @@ class Map {
 
     method void clearMap() {
         var int i;
-        let i = 1;
-        do exit.show(MIN_X + (ex[eid] * len) + 7, MIN_Y + (ex[eid] * len) + 7);
-        do clear(0, 1, false, r-1);
+        let i = 0;
         while (i < c) {
             do clear(i, 0, false, r); 
             let i = i + 1;
@@ -142,27 +130,29 @@ class Map {
 
 
     method int xRem(int x) {
-        let x = x / len;
+        let x = (x - MIN_X) / len;
         return Math.abs(x - ex[eid]);        
     }
     
     method int yRem(int y) {
-        let y = y / len;
+        let y = (y - MIN_Y) / len;
         return Math.abs(y - ey[eid]);        
     }
 
     method int move(int x, int y) {
         var Array tmp;
         let tmp = status[x];
+        return tmp[y];
+    }
 
-        if (tmp[y] = 1) { 
-            return 0;
-        }
-        if (tmp[y] = 2) {
-            do clearMap();
-            return 2;
-        }
-        return 1;
+    method void erase(int x, int y) {
+        var Array tmp;
+        do Screen.setColor(false);
+        do Screen.drawRectangle(MIN_X+(x*len)+1, MIN_Y+(y*len)+1, MIN_X+(x*len)+14, MIN_Y+(y*len)+14);
+        let tmp = status[x];
+        let tmp[y] = 0;
+
+        return;
     }
 
     method void drawLine(int x, int y1, int y2) {
@@ -180,11 +170,47 @@ class Map {
         
     }
 
+    method void op(int x, int y, int t) {
+        var Array tmp;
+        let tmp = status[x];
+        let tmp[y] = t;
+        return;
+    }
+
     method void drawMap(int t) {
+        var Array tmp;
         if (t = 0) {
+            // exit
+            let tmp = status[0];
+            let tmp[0] = 2;
             let eid = 0;
             let ex[0] = 0;
             let ey[0] = 0;
+
+            
+            // add
+            do op(3, 0, 3);
+            do op(5, 7, 3);
+            do op(5, 11, 3);
+            do op(8, 2, 3);
+            do op(14, 5, 3);
+            do op(16, 5, 3);
+            do op(18, 10, 3);
+            do op(19, 0, 3);
+            do op(21, 11, 3);
+
+            // double
+            do op(0, 11, 4);
+            do op(2, 0, 4);
+            do op(3, 9, 4);
+            do op(10, 13, 4);
+            do op(15, 5, 4);
+            do op(16, 11, 4);
+            do op(20, 6, 4);
+            do op(23, 0, 4);
+            
+
+            // wall
             do drawLine(0, 10, 10);
             do drawLine(1, 0, 3);
             do drawLine(1, 5, 8);
@@ -280,6 +306,112 @@ class Map {
             do drawLine(23, 13, 13);
             do drawLine(24, 9, 9);
         }
+        if (t = 1) {
+            // exit
+            let tmp = status[18];
+            let tmp[5] = 2;
+            let eid = 1;
+            let ex[1] = 18;
+            let ey[1] = 5;
+
+            // add
+            do op(4, 12, 3);
+            do op(8, 7, 3);
+            do op(8, 13, 3);
+            do op(11, 0, 3);
+            do op(12, 0, 3);
+            do op(13, 0, 3);
+            do op(14, 0, 3);
+            do op(15, 0, 3);
+            do op(20, 11, 3);
+            do op(24, 11, 3);
+
+            // double
+            do op(0, 5, 4);
+            do op(14, 2, 4);
+            do op(17, 9, 4);
+            do op(24, 7, 4);
+
+            // wall
+            do drawLine(0, 6, 6);
+            do drawLine(0, 10, 10);
+            do drawLine(1, 1, 6);
+            do drawLine(1, 8, 8);
+            do drawLine(1, 10, 10);
+            do drawLine(1, 12, 13);
+            do drawLine(2, 8, 8);
+            do drawLine(2, 10, 10);
+            do drawLine(2, 13, 13);
+            do drawLine(3, 1, 6);
+            do drawLine(3, 8, 8);
+            do drawLine(3, 10, 10);
+            do drawLine(3, 13, 13);
+            do drawLine(4, 1, 1);
+            do drawLine(4, 8, 8);
+            do drawLine(4, 10, 10);
+            do drawLine(4, 13, 13);
+            do drawLine(5, 1, 1);
+            do drawLine(5, 3, 8);
+            do drawLine(5, 10, 13);
+            do drawLine(6, 1, 1);
+            do drawLine(7, 1, 2);
+            do drawLine(7, 4, 10);
+            do drawLine(7, 12, 14);
+            do drawLine(8, 2, 2);
+            do drawLine(8, 4, 4);
+            do drawLine(8, 8, 8);
+            do drawLine(8, 10, 10);
+            do drawLine(8, 12, 12);
+            do drawLine(9, 0, 0);
+            do drawLine(9, 2, 2);
+            do drawLine(9, 4, 4);
+            do drawLine(9, 6, 8);
+            do drawLine(9, 10, 10);
+            do drawLine(9, 12, 12);
+            do drawLine(10, 2, 2);
+            do drawLine(10, 4, 4);
+            do drawLine(11, 1, 2);
+            do drawLine(11, 4, 12);
+            do drawLine(11, 14, 14);
+            do drawLine(12, 1, 1);
+            do drawLine(12, 12, 12);
+            do drawLine(13, 1, 1);
+            do drawLine(13, 3, 6);
+            do drawLine(13, 8, 8);
+            do drawLine(13, 10, 10);
+            do drawLine(13, 12, 13);
+            do drawLine(14, 1, 1);
+            do drawLine(14, 8, 8);
+            do drawLine(14, 10, 10);
+            do drawLine(14, 12, 12);
+            do drawLine(15, 1, 8);
+            do drawLine(15, 10, 10);
+            do drawLine(15, 12, 12);
+            do drawLine(15, 14, 14);
+            do drawLine(16, 8, 8);
+            do drawLine(16, 10, 10);
+            do drawLine(16, 12, 12);
+            do drawLine(17, 1, 6);
+            do drawLine(17, 8, 8);
+            do drawLine(18, 1, 1);
+            do drawLine(18, 6, 6);
+            do drawLine(18, 8, 13);
+            do drawLine(19, 1, 1);
+            do drawLine(19, 3, 6);
+            do drawLine(19, 8, 8);
+            do drawLine(19, 12, 12);
+            do drawLine(20, 1, 1);
+            do drawLine(20, 8, 8);
+            do drawLine(20, 10, 10);
+            do drawLine(20, 12, 12);
+            do drawLine(21, 1, 8);
+            do drawLine(21, 10, 12);
+            do drawLine(23, 1, 8);
+            do drawLine(23, 10, 12);
+            do drawLine(24, 8, 8);
+            do drawLine(24, 12, 12);
+
+        }
         return;
     }
 
@@ -288,6 +420,19 @@ class Map {
         var int i;
         var int j;
         var Array tmp;
+
+        let i = 0;
+        
+        while (i < c) {
+            let status[i] = Array.new(r);
+            let tmp = status[i];
+            let j = 0;
+            while (j < r) {
+                let tmp[j] = 0; 
+                let j = j + 1;
+            }
+            let i = i + 1;
+        }
         
         // clearOutput
         do Screen.setColor(false);
@@ -303,7 +448,6 @@ class Map {
         do Screen.drawLine(MIN_X, MAX_Y, MAX_X, MAX_Y);
         do Screen.drawLine(MIN_X, MIN_Y, MIN_X, MAX_Y);
         do Screen.drawLine(MAX_X, MIN_Y, MAX_X, MAX_Y);
-
 
         // grid
         let i = c - 1;
@@ -321,12 +465,9 @@ class Map {
 
         // draw the map
         do drawMap(id);
-        
-        // set exit
-        let tmp = status[0];
-        let tmp[0] = 2;
 
         let i = 0;
+
 
         while (i < c) {
             let j = 0;
@@ -356,8 +497,32 @@ class Map {
         do Output.printString("Y : ");
         do Output.moveCursor(20, 51);
         do Output.printString("Remain : ");
-
         
+        return;
+    }
+
+    method void gameStart() {
+        var int ddx;
+        var int dx, dy;
+        let ddx = 1;
+        let dx = 13;
+        let dy = 4;         
+        do Screen.setColor(false);
+        do Screen.drawRectangle(410, 10, 500, 70);
+        do Screen.setColor(true);
+        // G
+        do Screen.drawRectangle(415+dx, 15+dy, 430+dx, 20+dy);    
+        do Screen.drawRectangle(410+dx, 20+dy, 415+dx, 53+dy);    
+        do Screen.drawRectangle(415+dx, 53+dy, 430+dx, 58+dy);    
+        do Screen.drawRectangle(430+dx, 20+dy, 435+dx, 25+dy);    
+        do Screen.drawRectangle(430+dx, 37+dy, 435+dx, 53+dy);    
+        do Screen.drawRectangle(425+dx, 37+dy, 430+dx, 42+dy);    
+        // O
+        do Screen.drawRectangle(445+dx+ddx, 15+dy, 460+dx+ddx, 20+dy);    
+        do Screen.drawRectangle(440+dx+ddx, 21+dy, 445+dx+ddx, 53+dy);    
+        do Screen.drawRectangle(445+dx+ddx, 53+dy, 460+dx+ddx, 58+dy);    
+        do Screen.drawRectangle(460+dx+ddx, 21+dy, 465+dx+ddx, 53+dy);    
+
         return;
     }
 
@@ -365,6 +530,8 @@ class Map {
         var int ddx;
         var int dx, dy;
 
+        do Screen.setColor(false);
+        do Screen.drawRectangle(410, 10, 500, 70);
         do Screen.setColor(true);
 
         // true : AC

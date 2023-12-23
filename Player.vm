@@ -32,10 +32,12 @@ sub
 push static 4
 call Math.divide 2
 pop static 5
+push constant 1
+pop static 15
 call Map.new 0
 pop static 11
 push static 11
-push constant 0
+push static 15
 call Map.build 2
 pop temp 0
 push constant 15
@@ -165,8 +167,12 @@ push constant 0
 pop this 0
 push constant 0
 pop this 1
-push constant 50
+push constant 32
+pop static 14
+push static 14
 pop static 10
+push constant 0
+pop static 16
 push pointer 0
 return
 function Player.showDis 0
@@ -194,7 +200,7 @@ push constant 16
 push constant 55
 call Output.moveCursor 2
 pop temp 0
-push static 14
+push static 17
 call Output.printInt 1
 pop temp 0
 push constant 18
@@ -217,7 +223,7 @@ push constant 18
 push constant 55
 call Output.moveCursor 2
 pop temp 0
-push static 15
+push static 18
 call Output.printInt 1
 pop temp 0
 push constant 20
@@ -250,6 +256,8 @@ push constant 208
 pop static 8
 push constant 128
 pop static 9
+push static 14
+pop static 10
 push constant 16
 push constant 55
 call Output.moveCursor 2
@@ -288,8 +296,10 @@ push constant 20
 push constant 60
 call Output.moveCursor 2
 pop temp 0
-push constant 3
+push constant 4
 call String.new 1
+push constant 32
+call String.appendChar 2
 push constant 32
 call String.appendChar 2
 push constant 32
@@ -298,9 +308,23 @@ push constant 32
 call String.appendChar 2
 call Output.printString 1
 pop temp 0
-push static 11
+push static 16
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 1
+push static 15
+sub
+pop static 15
+label IF_FALSE0
 push constant 0
+pop static 16
+push static 11
+push static 15
 call Map.build 2
+pop temp 0
+push static 11
+call Map.gameStart 1
 pop temp 0
 push static 11
 push constant 10
@@ -348,6 +372,17 @@ push static 9
 push constant 0
 not
 call Player.show 4
+pop temp 0
+push static 11
+push static 8
+call Map.xRem 2
+pop static 17
+push static 11
+push static 9
+call Map.yRem 2
+pop static 18
+push pointer 0
+call Player.showDis 1
 pop temp 0
 push constant 0
 pop this 0
@@ -371,6 +406,9 @@ push constant 0
 not
 pop this 1
 push static 11
+call Map.gameStart 1
+pop temp 0
+push static 11
 push constant 10
 push constant 5
 push constant 0
@@ -417,6 +455,19 @@ push constant 0
 not
 call Player.show 4
 pop temp 0
+push static 11
+push static 8
+call Map.xRem 2
+pop static 17
+push static 11
+push static 9
+call Map.yRem 2
+pop static 18
+push pointer 0
+call Player.showDis 1
+pop temp 0
+push constant 0
+pop this 0
 push constant 0
 return
 function Player.show 0
@@ -453,7 +504,7 @@ or
 if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
-push constant 0
+push constant 1
 return
 label IF_FALSE0
 push argument 1
@@ -542,8 +593,16 @@ push local 1
 call Player.valid 3
 pop local 5
 push local 5
-push constant 1
+push constant 0
 eq
+push local 5
+push constant 3
+eq
+or
+push local 5
+push constant 4
+eq
+or
 if-goto IF_TRUE5
 goto IF_FALSE5
 label IF_TRUE5
@@ -658,44 +717,40 @@ sub
 push static 4
 call Math.divide 2
 pop local 3
-push argument 1
-push constant 1
+push local 5
+push constant 3
 eq
 if-goto IF_TRUE10
 goto IF_FALSE10
 label IF_TRUE10
+push static 10
+push constant 8
+add
+pop static 10
+push static 11
 push local 2
-push static 12
-sub
-pop local 2
 push local 3
-push static 12
-sub
-pop local 3
-push constant 0
-not
-pop local 4
+call Map.erase 3
+pop temp 0
 label IF_FALSE10
-push argument 1
-push constant 2
+push local 5
+push constant 4
 eq
 if-goto IF_TRUE11
 goto IF_FALSE11
 label IF_TRUE11
+push static 10
+push constant 2
+call Math.multiply 2
+pop static 10
+push static 11
 push local 2
-push static 12
-sub
-pop local 2
 push local 3
-push static 12
-add
-pop local 3
-push constant 0
-not
-pop local 4
+call Map.erase 3
+pop temp 0
 label IF_FALSE11
 push argument 1
-push constant 3
+push constant 1
 eq
 if-goto IF_TRUE12
 goto IF_FALSE12
@@ -709,14 +764,50 @@ push static 12
 sub
 pop local 3
 push constant 0
+not
 pop local 4
 label IF_FALSE12
 push argument 1
-push constant 4
+push constant 2
 eq
 if-goto IF_TRUE13
 goto IF_FALSE13
 label IF_TRUE13
+push local 2
+push static 12
+sub
+pop local 2
+push local 3
+push static 12
+add
+pop local 3
+push constant 0
+not
+pop local 4
+label IF_FALSE13
+push argument 1
+push constant 3
+eq
+if-goto IF_TRUE14
+goto IF_FALSE14
+label IF_TRUE14
+push local 2
+push static 12
+sub
+pop local 2
+push local 3
+push static 12
+sub
+pop local 3
+push constant 0
+pop local 4
+label IF_FALSE14
+push argument 1
+push constant 4
+eq
+if-goto IF_TRUE15
+goto IF_FALSE15
+label IF_TRUE15
 push local 2
 push static 12
 add
@@ -727,7 +818,7 @@ sub
 pop local 3
 push constant 0
 pop local 4
-label IF_FALSE13
+label IF_FALSE15
 push static 11
 push local 2
 push local 3
@@ -735,48 +826,48 @@ push local 4
 push static 13
 call Map.clear 5
 pop temp 0
-push static 14
+push static 17
 pop local 2
-push static 15
+push static 18
 pop local 3
 push static 11
 push static 8
 call Map.xRem 2
-pop static 14
+pop static 17
 push static 11
 push static 9
 call Map.yRem 2
-pop static 15
-push static 14
+pop static 18
+push static 17
 push local 2
 lt
-push static 15
+push static 18
 or
 push local 3
 lt
-if-goto IF_TRUE14
-goto IF_FALSE14
-label IF_TRUE14
+if-goto IF_TRUE16
+goto IF_FALSE16
+label IF_TRUE16
 push static 10
 push constant 2
 sub
 pop static 10
-goto IF_END14
-label IF_FALSE14
+goto IF_END16
+label IF_FALSE16
 push static 10
 push constant 1
 add
 pop static 10
-label IF_END14
+label IF_END16
 push pointer 0
 call Player.showDis 1
 pop temp 0
 push static 10
 push constant 1
 lt
-if-goto IF_TRUE15
-goto IF_FALSE15
-label IF_TRUE15
+if-goto IF_TRUE17
+goto IF_FALSE17
+label IF_TRUE17
 push constant 0
 not
 pop this 0
@@ -789,7 +880,7 @@ call Map.gameOver 2
 pop temp 0
 push constant 0
 return
-label IF_FALSE15
+label IF_FALSE17
 push pointer 0
 push static 8
 push static 9
@@ -801,25 +892,37 @@ label IF_FALSE5
 push local 5
 push constant 2
 eq
-if-goto IF_TRUE16
-goto IF_FALSE16
-label IF_TRUE16
+if-goto IF_TRUE18
+goto IF_FALSE18
+label IF_TRUE18
 push constant 0
 not
 pop this 0
 push constant 0
-pop static 14
+pop static 17
 push constant 0
-pop static 15
+pop static 18
+push constant 0
+not
+pop static 16
+push pointer 0
+push static 8
+push static 9
+push constant 0
+call Player.show 4
+pop temp 0
 push pointer 0
 call Player.showDis 1
+pop temp 0
+push static 11
+call Map.clearMap 1
 pop temp 0
 push static 11
 push constant 0
 not
 call Map.gameOver 2
 pop temp 0
-label IF_FALSE16
+label IF_FALSE18
 push constant 0
 return
 function Player.dispose 0
