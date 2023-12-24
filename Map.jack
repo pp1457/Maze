@@ -191,23 +191,22 @@ class Map {
 
             
             // add
+            do op(0, 11, 3);
             do op(3, 0, 3);
             do op(5, 7, 3);
             do op(5, 11, 3);
             do op(8, 2, 3);
             do op(14, 5, 3);
             do op(16, 5, 3);
+            do op(18, 6, 3);
             do op(18, 10, 3);
             do op(19, 0, 3);
             do op(21, 11, 3);
 
             // double
-            do op(0, 11, 4);
             do op(2, 0, 4);
-            do op(12, 13, 4);
             do op(15, 5, 4);
             do op(16, 11, 4);
-            do op(18, 6, 4);
             do op(20, 6, 4);
             do op(23, 0, 4);
             
