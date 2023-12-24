@@ -7,21 +7,20 @@ class Fog {
     constructor Fog new() {
         let a = Array.new(15);
 
-        let a[0] = 13933;  
-        let a[1] = 3424;
-        let a[2] = 8452;
-        let a[3] = 9983;
-        let a[4] = 31888;
-        let a[5] = 22232;
-        let a[6] = 13933;
-        let a[7] = 3424;
-        let a[8] = 8452;
-        let a[9] = 9983;
-        let a[10] = 31888; 
-        let a[11] = 22232; 
-        let a[12] = 12344;
-        let a[13] = 11233;
-        let a[14] = 11399;
+        let a[0] = 10276;  
+        let a[1] = 5265;
+        let a[2] = 8711;
+        let a[3] = 5204;
+        let a[4] = 8849;
+        let a[5] = 1028;
+        let a[6] = 10826;
+        let a[7] = 8612;
+        let a[8] = 10441;
+        let a[9] = 3702;
+        let a[10] = 2346; 
+        let a[11] = 9285; 
+        let a[12] = 7042;
+        let a[13] = 10564;
         return this;
     }
 

@@ -120,9 +120,11 @@ class Map {
 
     method void clearMap() {
         var int i;
+        var int j;
         let i = 0;
         while (i < c) {
             do clear(i, 0, false, r); 
+            let j = 1000;
             let i = i + 1;
         }
         return;
@@ -202,10 +204,10 @@ class Map {
             // double
             do op(0, 11, 4);
             do op(2, 0, 4);
-            do op(3, 9, 4);
-            do op(10, 13, 4);
+            do op(12, 13, 4);
             do op(15, 5, 4);
             do op(16, 11, 4);
+            do op(18, 6, 4);
             do op(20, 6, 4);
             do op(23, 0, 4);
             
@@ -319,9 +321,7 @@ class Map {
             do op(8, 7, 3);
             do op(8, 13, 3);
             do op(11, 0, 3);
-            do op(12, 0, 3);
             do op(13, 0, 3);
-            do op(14, 0, 3);
             do op(15, 0, 3);
             do op(20, 11, 3);
             do op(24, 11, 3);
@@ -420,6 +420,7 @@ class Map {
         var int i;
         var int j;
         var Array tmp;
+        var String str;
 
         let i = 0;
         
@@ -480,23 +481,32 @@ class Map {
 
 
         // right bar
+        let str = "-----";
         do Output.moveCursor(6, 54);
-        do Output.printString("-----");
-        do Output.moveCursor(8, 51);
-        do Output.printString("S : start");
-        do Output.moveCursor(10, 51);
-        do Output.printString("R : restart");
-        do Output.moveCursor(12, 51);
-        do Output.printString("Arrow : move");
+        do Output.printString(str);
         do Output.moveCursor(14, 54);
-        do Output.printString("-----");
+        do Output.printString(str);
+        let str = "S : start";
+        do Output.moveCursor(8, 51);
+        do Output.printString(str);
+        let str = "R : restart";
+        do Output.moveCursor(10, 51);
+        do Output.printString(str);
+        let str = "Arrow : move";
+        do Output.moveCursor(12, 51);
+        do Output.printString(str);
 
+        let str = "X : ";
         do Output.moveCursor(16, 51);
-        do Output.printString("X : ");
+        do Output.printString(str);
+        let str = "Y : ";
         do Output.moveCursor(18, 51);
-        do Output.printString("Y : ");
+        do Output.printString(str);
+        let str = "Remain : ";
         do Output.moveCursor(20, 51);
-        do Output.printString("Remain : ");
+        do Output.printString(str);
+
+        do str.dispose();
         
         return;
     }

@@ -8,21 +8,38 @@ class Wall {
     constructor Wall new() {
         let a = Array.new(15);
 
-        let a[0] = 32767; 
-        let a[1] = 32767; 
-        let a[2] = 32767; 
-        let a[3] = 32767; 
-        let a[4] = 32767; 
-        let a[5] = 32767; 
-        let a[6] = 32767; 
-        let a[7] = 32767; 
-        let a[8] = 32767; 
-        let a[9] = 32767; 
-        let a[10] = 32767; 
-        let a[11] = 32767; 
-        let a[12] = 32767;
-        let a[13] = 32767;
-        let a[14] = 32767;
+        /* version 1 */
+        let a[0] = 16383; 
+        let a[1] = 16383; 
+        let a[2] = 16383; 
+        let a[3] = 16383; 
+        let a[4] = 16383; 
+        let a[5] = 16383; 
+        let a[6] = 16383; 
+        let a[7] = 16383; 
+        let a[8] = 16383; 
+        let a[9] = 16383; 
+        let a[10] = 16383; 
+        let a[11] = 16383; 
+        let a[12] = 16383;
+        let a[13] = 16383;
+
+        /* version 2 
+        let a[0] = 16383; 
+        let a[1] = 16383; 
+        let a[2] = 16383; 
+        let a[3] = 16191; 
+        let a[4] = 15903; 
+        let a[5] = 15375; 
+        let a[6] = 14343; 
+        let a[7] = 14343; 
+        let a[8] = 15375; 
+        let a[9] = 15903; 
+        let a[10] = 16191; 
+        let a[11] = 16383; 
+        let a[12] = 16383;
+        let a[13] = 16383;
+        */
 
         let block = Block.new();
 
@@ -30,6 +47,8 @@ class Wall {
     }
 
     method void show(int x, int y) {
+        // do Screen.setColor(true);
+        // do Screen.drawRectangle(x+1, y+1, x+14, y+14);
         do block.show(x, y, a); 
         return;
     }

@@ -63,32 +63,41 @@ class Player {
     }
 
     method void showDis() {
+        var String str;
+        let str = "    ";     
         do Output.moveCursor(16, 55);
-        do Output.printString("     ");
+        do Output.printString(str);
         do Output.moveCursor(16, 55);
         do Output.printInt(xDist);
         do Output.moveCursor(18, 55);
-        do Output.printString("    ");
+        do Output.printString(str);
         do Output.moveCursor(18, 55);
         do Output.printInt(yDist);
         do Output.moveCursor(20, 60);
-        do Output.printString("   ");
+        do Output.printString(str);
         do Output.moveCursor(20, 60);
         do Output.printInt(remain);
+
+        do str.dispose();
         return;
     }
     
     method void restart() {
+        var String str;
         let x = 208;
         let y = 128;
         let remain = init;
 
+        let str = "    ";
+
         do Output.moveCursor(16, 55);
-        do Output.printString("     ");
+        do Output.printString(str);
         do Output.moveCursor(18, 55);
-        do Output.printString("    ");
+        do Output.printString(str);
         do Output.moveCursor(20, 60);
-        do Output.printString("    ");
+        do Output.printString(str);
+        
+        do str.dispose();
 
         if (win) {
             let mid = 1 - mid;
@@ -256,7 +265,7 @@ class Player {
             let yDist = map.yRem(y);
 
             if (xDist < tx | yDist < ty) {
-                let remain = remain - 2;
+                let remain = remain - 3;
             } else {
                 let remain = remain + 1;
             }

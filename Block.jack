@@ -26,7 +26,6 @@ class Block {
         let bit_masks[11] = 2048;
         let bit_masks[12] = 4096;
         let bit_masks[13] = 8192;
-        let bit_masks[14] = 16384;
 
         return this;
     }

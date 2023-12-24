@@ -175,14 +175,10 @@ push constant 0
 pop static 16
 push pointer 0
 return
-function Player.showDis 0
+function Player.showDis 1
 push argument 0
 pop pointer 0
-push constant 16
-push constant 55
-call Output.moveCursor 2
-pop temp 0
-push constant 5
+push constant 4
 call String.new 1
 push constant 32
 call String.appendChar 2
@@ -192,8 +188,12 @@ push constant 32
 call String.appendChar 2
 push constant 32
 call String.appendChar 2
-push constant 32
-call String.appendChar 2
+pop local 0
+push constant 16
+push constant 55
+call Output.moveCursor 2
+pop temp 0
+push local 0
 call Output.printString 1
 pop temp 0
 push constant 16
@@ -207,16 +207,7 @@ push constant 18
 push constant 55
 call Output.moveCursor 2
 pop temp 0
-push constant 4
-call String.new 1
-push constant 32
-call String.appendChar 2
-push constant 32
-call String.appendChar 2
-push constant 32
-call String.appendChar 2
-push constant 32
-call String.appendChar 2
+push local 0
 call Output.printString 1
 pop temp 0
 push constant 18
@@ -230,14 +221,7 @@ push constant 20
 push constant 60
 call Output.moveCursor 2
 pop temp 0
-push constant 3
-call String.new 1
-push constant 32
-call String.appendChar 2
-push constant 32
-call String.appendChar 2
-push constant 32
-call String.appendChar 2
+push local 0
 call Output.printString 1
 pop temp 0
 push constant 20
@@ -247,9 +231,12 @@ pop temp 0
 push static 10
 call Output.printInt 1
 pop temp 0
+push local 0
+call String.dispose 1
+pop temp 0
 push constant 0
 return
-function Player.restart 0
+function Player.restart 1
 push argument 0
 pop pointer 0
 push constant 208
@@ -258,11 +245,7 @@ push constant 128
 pop static 9
 push static 14
 pop static 10
-push constant 16
-push constant 55
-call Output.moveCursor 2
-pop temp 0
-push constant 5
+push constant 4
 call String.new 1
 push constant 32
 call String.appendChar 2
@@ -272,41 +255,30 @@ push constant 32
 call String.appendChar 2
 push constant 32
 call String.appendChar 2
-push constant 32
-call String.appendChar 2
+pop local 0
+push constant 16
+push constant 55
+call Output.moveCursor 2
+pop temp 0
+push local 0
 call Output.printString 1
 pop temp 0
 push constant 18
 push constant 55
 call Output.moveCursor 2
 pop temp 0
-push constant 4
-call String.new 1
-push constant 32
-call String.appendChar 2
-push constant 32
-call String.appendChar 2
-push constant 32
-call String.appendChar 2
-push constant 32
-call String.appendChar 2
+push local 0
 call Output.printString 1
 pop temp 0
 push constant 20
 push constant 60
 call Output.moveCursor 2
 pop temp 0
-push constant 4
-call String.new 1
-push constant 32
-call String.appendChar 2
-push constant 32
-call String.appendChar 2
-push constant 32
-call String.appendChar 2
-push constant 32
-call String.appendChar 2
+push local 0
 call Output.printString 1
+pop temp 0
+push local 0
+call String.dispose 1
 pop temp 0
 push static 16
 if-goto IF_TRUE0
@@ -849,7 +821,7 @@ if-goto IF_TRUE16
 goto IF_FALSE16
 label IF_TRUE16
 push static 10
-push constant 2
+push constant 3
 sub
 pop static 10
 goto IF_END16
